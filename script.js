@@ -1,6 +1,3 @@
-// =============================
-// SHARED: ham Menu
-// =============================
 const ham = document.getElementById('ham');
 const mobileMenu = document.getElementById('mobileMenu');
 
@@ -10,9 +7,6 @@ if (ham && mobileMenu) {
   });
 }
 
-// =============================
-// INDEX: Contact Form
-// =============================
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
 
@@ -33,9 +27,7 @@ if (contactForm) {
   });
 }
 
-// =============================
-// BOOKING PAGE
-// =============================
+
 const eventOptions = document.querySelectorAll('.event-option');
 let selectedPrice = 999;
 let qty = 1;
@@ -59,7 +51,7 @@ function updateSummary() {
   document.getElementById('qtyDisplay') && (document.getElementById('qtyDisplay').textContent = qty);
 }
 
-// Event option selection
+
 eventOptions.forEach(function (option) {
   option.addEventListener('click', function () {
     eventOptions.forEach(function (o) { o.classList.remove('active-event'); });
@@ -116,11 +108,8 @@ if (bookingForm) {
   });
 }
 
-// =============================
-// DASHBOARD PAGE
-// =============================
 
-// Filter buttons
+
 const filterBtns = document.querySelectorAll('.filter-btn');
 const bookingItems = document.querySelectorAll('.booking-item');
 
@@ -142,7 +131,8 @@ filterBtns.forEach(function (btn) {
   });
 });
 
-// Cancel booking modal
+
+
 const cancelModal = document.getElementById('cancelModal');
 const cancelBtns = document.querySelectorAll('.btn-cancel');
 let cancelTarget = null;
