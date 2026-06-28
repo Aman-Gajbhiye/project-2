@@ -1,11 +1,11 @@
 // =============================
-// SHARED: Hamburger Menu
+// SHARED: ham Menu
 // =============================
-const hamburger = document.getElementById('hamburger');
+const ham = document.getElementById('ham');
 const mobileMenu = document.getElementById('mobileMenu');
 
-if (hamburger && mobileMenu) {
-  hamburger.addEventListener('click', function () {
+if (ham && mobileMenu) {
+  ham.addEventListener('click', function () {
     mobileMenu.classList.toggle('open');
   });
 }
