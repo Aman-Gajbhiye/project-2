@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - BookMyEvent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">🎉 BookMyEvent</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="dashboard.html" class="btn-login">Dashboard</a>
+      <a href="booking.html" class="btn-signup">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="booking.html">Book Now</a>
+  </div>
+
+  <section class="page-header">
+    <h1>Your <span>Dashboard</span></h1>
+    <p>Track your bookings, manage events, and view your activity at a glance.</p>
+  </section>
+
+  <section class="dashboard-section">
+
+    <!-- STATS ROW -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">🎟️</div>
+        <div class="stat-info">
+          <h3 id="totalBookings">3</h3>
+          <p>Total Bookings</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-info">
+          <h3>2</h3>
+          <p>Upcoming Events</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <h3>₹3,497</h3>
+          <p>Total Spent</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <h3>1</h3>
+          <p>Events Attended</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-layout">
+
+      <!-- MY BOOKINGS -->
+      <div class="dashboard-main">
+        <div class="section-header">
+          <h2>My Bookings</h2>
+          <a href="booking.html" class="btn-primary" style="font-size:13px; padding:8px 16px;">+ New Booking</a>
+        </div>
+
+        <div class="bookings-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+          <button class="filter-btn" data-filter="attended">Attended</button>
+        </div>
+
+        <div class="bookings-list" id="bookingsList">
+
+          <div class="booking-item" data-status="upcoming">
+            <div class="booking-color music-img"></div>
+            <div class="booking-details">
+              <span class="event-tag">Music</span>
+              <h4>Neon Nights Festival</h4>
+              <p>📅 Nov 12, 2025 &nbsp; 📍 Mumbai</p>
+              <p>🎟️ 2x General Tickets</p>
+            </div>
+            <div class="booking-meta">
+              <span class="status-badge upcoming">Upcoming</span>
+              <p class="booking-price">₹1,998</p>
+              <button class="btn-cancel" data-id="1">Cancel</button>
+            </div>
+          </div>
+
+          <div class="booking-item" data-status="upcoming">
+            <div class="booking-color tech-img"></div>
+            <div class="booking-details">
+              <span class="event-tag tag-tech">Tech</span>
+              <h4>Global Tech Summit 2025</h4>
+              <p>📅 Dec 5, 2025 &nbsp; 📍 Bangalore</p>
+              <p>🎟️ 1x VIP Ticket</p>
+            </div>
+            <div class="booking-meta">
+              <span class="status-badge upcoming">Upcoming</span>
+              <p class="booking-price">₹1,499</p>
+              <button class="btn-cancel" data-id="2">Cancel</button>
+            </div>
+          </div>
+
+          <div class="booking-item" data-status="attended">
+            <div class="booking-color workshop-img"></div>
+            <div class="booking-details">
+              <span class="event-tag tag-free">Free</span>
+              <h4>Design Thinking Workshop</h4>
+              <p>📅 Oct 10, 2025 &nbsp; 📍 Online</p>
+              <p>🎟️ 1x Free Ticket</p>
+            </div>
+            <div class="booking-meta">
+              <span class="status-badge attended">Attended</span>
+              <p class="booking-price">Free</p>
+              <button class="btn-cancel" disabled>Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="dashboard-sidebar">
+
+        <div class="sidebar-card">
+          <h3>Quick Actions</h3>
+          <a href="booking.html" class="quick-action-btn">🎟️ Book a Ticket</a>
+          <a href="index.html#events" class="quick-action-btn">📅 Browse Events</a>
+          <a href="index.html#contact" class="quick-action-btn">📧 Contact Support</a>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Notifications</h3>
+          <div class="notification-item">
+            <p>🔔 <strong>Neon Nights Festival</strong> is in 3 weeks! Don't forget.</p>
+          </div>
+          <div class="notification-item">
+            <p>💳 Payment of ₹1,499 confirmed for Tech Summit.</p>
+          </div>
+          <div class="notification-item">
+            <p>📧 Your ticket QR codes have been emailed to you.</p>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Account</h3>
+          <p class="account-info">👤 John Doe</p>
+          <p class="account-info">📧 john@example.com</p>
+          <p class="account-info">📱 +91 98765 43210</p>
+          <a href="#" class="quick-action-btn" style="margin-top:12px;">✏️ Edit Profile</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CANCEL MODAL -->
+  <div class="modal-overlay hidden" id="cancelModal">
+    <div class="modal">
+      <h3>Cancel Booking?</h3>
+      <p>Are you sure you want to cancel this booking? This action cannot be undone.</p>
+      <div class="modal-buttons">
+        <button class="btn-primary" id="confirmCancel">Yes, Cancel</button>
+        <button class="btn-secondary-dark" id="closeModal">Keep Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 BookMyEvent. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -3,77 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EventHub - Event Management System</title>
+  <title>BookMyEvent - Event Management System</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="nav-logo">🎉 BookMYEvent</div>
+    <div class="nav-logo">🎉 BookMyEvent</div>
     <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-buttons">
-      <a href="#" class="btn-login">Login</a>
-      <a href="#" class="btn-signup">Sign Up</a>
+      <a href="dashboard.html" class="btn-login">Dashboard</a>
+      <a href="booking.html" class="btn-signup">Book Now</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">&#9776;</button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="#features">Features</a>
+    <a href="#events">Events</a>
+    <a href="#contact">Contact</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="booking.html">Book Now</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="home">
     <h1>Manage Your Events <span>Easily</span></h1>
     <p>Create events, sell tickets, and manage attendees all in one place.</p>
     <div class="hero-buttons">
-      <a href="#" class="btn-primary">Create Event</a>
-      <a href="#" class="btn-secondary">Browse Events</a>
+      <a href="booking.html" class="btn-primary">Book an Event</a>
+      <a href="#events" class="btn-secondary">Browse Events</a>
     </div>
   </section>
 
   <!-- FEATURES -->
   <section class="features" id="features">
-    <h2>Why Choose EventHub?</h2>
+    <h2>Why Choose BookMyEvent?</h2>
     <div class="features-grid">
-
       <div class="feature-box">
         <div class="feature-icon">🎟️</div>
         <h3>Easy Ticketing</h3>
         <p>Sell tickets online with support for VIP, general, and early bird pricing.</p>
       </div>
-
       <div class="feature-box">
         <div class="feature-icon">📱</div>
         <h3>QR Code Check-in</h3>
         <p>Generate QR codes for every ticket and scan them at the entry gate.</p>
       </div>
-
       <div class="feature-box">
         <div class="feature-icon">📊</div>
         <h3>Analytics Dashboard</h3>
         <p>Track ticket sales, revenue, and attendance in real time.</p>
       </div>
-
       <div class="feature-box">
         <div class="feature-icon">📧</div>
         <h3>Email Campaigns</h3>
         <p>Send promotional emails to your registered attendees with one click.</p>
       </div>
-
       <div class="feature-box">
         <div class="feature-icon">🗺️</div>
         <h3>Seat Selection</h3>
         <p>Let attendees pick their seats from an interactive seating map.</p>
       </div>
-
       <div class="feature-box">
         <div class="feature-icon">💳</div>
         <h3>Secure Payments</h3>
         <p>Accept payments securely with automatic refunds on event cancellation.</p>
       </div>
-
     </div>
   </section>
 
@@ -81,7 +85,6 @@
   <section class="events" id="events">
     <h2>Upcoming Events</h2>
     <div class="events-grid">
-
       <div class="event-card">
         <div class="event-img music-img"></div>
         <div class="event-info">
@@ -91,11 +94,10 @@
           <p>📍 Mumbai</p>
           <div class="event-footer">
             <span class="event-price">₹999</span>
-            <a href="#" class="btn-primary">Book Now</a>
+            <a href="booking.html" class="btn-primary">Book Now</a>
           </div>
         </div>
       </div>
-
       <div class="event-card">
         <div class="event-img tech-img"></div>
         <div class="event-info">
@@ -105,11 +107,10 @@
           <p>📍 Bangalore</p>
           <div class="event-footer">
             <span class="event-price">₹1,499</span>
-            <a href="#" class="btn-primary">Book Now</a>
+            <a href="booking.html" class="btn-primary">Book Now</a>
           </div>
         </div>
       </div>
-
       <div class="event-card">
         <div class="event-img workshop-img"></div>
         <div class="event-info">
@@ -119,11 +120,10 @@
           <p>📍 Online</p>
           <div class="event-footer">
             <span class="event-price">Free</span>
-            <a href="#" class="btn-primary">Register</a>
+            <a href="booking.html" class="btn-primary">Register</a>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -138,12 +138,12 @@
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Promote & Sell</h3>
+        <h3>Promote &amp; Sell</h3>
         <p>Share your event link and start receiving registrations and payments.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Host & Track</h3>
+        <h3>Host &amp; Track</h3>
         <p>Check in attendees with QR codes and view live attendance data.</p>
       </div>
     </div>
@@ -153,23 +153,25 @@
   <section class="contact" id="contact">
     <h2>Get In Touch</h2>
     <p>Have questions? We'd love to hear from you.</p>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" />
-      <input type="email" placeholder="Your Email" />
-      <textarea placeholder="Your Message" rows="4"></textarea>
+    <form class="contact-form" id="contactForm">
+      <input type="text" id="contactName" placeholder="Your Name" />
+      <input type="email" id="contactEmail" placeholder="Your Email" />
+      <textarea placeholder="Your Message" rows="4" id="contactMsg"></textarea>
       <button type="submit" class="btn-primary">Send Message</button>
     </form>
+    <p class="form-success" id="contactSuccess">✅ Message sent! We'll get back to you shortly.</p>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2025 EventHub. All rights reserved.</p>
+    <p>© 2025 BookMyEvent. All rights reserved.</p>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
-      <a href="#">Terms of service</a>
-      <a href="#">Contact us</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
     </div>
   </footer>
 
+  <script src="main.js"></script>
 </body>
 </html>

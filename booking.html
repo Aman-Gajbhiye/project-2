@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Ticket - BookMyEvent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">🎉 BookMyEvent</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="dashboard.html" class="btn-login">Dashboard</a>
+      <a href="booking.html" class="btn-signup">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="booking.html">Book Now</a>
+  </div>
+
+  <section class="page-header">
+    <h1>Book Your <span>Ticket</span></h1>
+    <p>Choose an event, pick your ticket type, and confirm your booking in seconds.</p>
+  </section>
+
+  <section class="booking-section">
+    <div class="booking-layout">
+
+      <div class="booking-left">
+        <h2>Select an Event</h2>
+
+        <div class="event-option active-event" data-event="Neon Nights Festival" data-price="999" data-date="Nov 12, 2025" data-location="Mumbai">
+          <div class="event-opt-color music-img"></div>
+          <div class="event-opt-info">
+            <span class="event-tag">Music</span>
+            <h4>Neon Nights Festival</h4>
+            <p>📅 Nov 12, 2025 &nbsp; 📍 Mumbai</p>
+            <p class="opt-price">From ₹999</p>
+          </div>
+        </div>
+
+        <div class="event-option" data-event="Global Tech Summit 2025" data-price="1499" data-date="Dec 5, 2025" data-location="Bangalore">
+          <div class="event-opt-color tech-img"></div>
+          <div class="event-opt-info">
+            <span class="event-tag tag-tech">Tech</span>
+            <h4>Global Tech Summit 2025</h4>
+            <p>📅 Dec 5, 2025 &nbsp; 📍 Bangalore</p>
+            <p class="opt-price">From ₹1,499</p>
+          </div>
+        </div>
+
+        <div class="event-option" data-event="Design Thinking Workshop" data-price="0" data-date="Nov 28, 2025" data-location="Online">
+          <div class="event-opt-color workshop-img"></div>
+          <div class="event-opt-info">
+            <span class="event-tag tag-free">Free</span>
+            <h4>Design Thinking Workshop</h4>
+            <p>📅 Nov 28, 2025 &nbsp; 📍 Online</p>
+            <p class="opt-price">Free</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-right">
+        <div class="booking-summary">
+          <h3>Booking Summary</h3>
+          <div class="summary-row"><span>Event</span><strong id="sumEvent">Neon Nights Festival</strong></div>
+          <div class="summary-row"><span>Date</span><strong id="sumDate">Nov 12, 2025</strong></div>
+          <div class="summary-row"><span>Location</span><strong id="sumLocation">Mumbai</strong></div>
+          <div class="summary-row"><span>Ticket Type</span><strong id="sumTicket">General</strong></div>
+          <div class="summary-row"><span>Quantity</span><strong id="sumQty">1</strong></div>
+          <div class="summary-row total-row"><span>Total</span><strong id="sumTotal">₹999</strong></div>
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+          <h3>Your Details</h3>
+
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="Enter your full name" />
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Enter your phone number" />
+
+          <label for="ticketType">Ticket Type</label>
+          <select id="ticketType">
+            <option value="General" data-mult="1">General — Base Price</option>
+            <option value="VIP" data-mult="2">VIP — 2x Price</option>
+            <option value="Early Bird" data-mult="0.8">Early Bird — 20% Off</option>
+          </select>
+
+          <label for="qty">Number of Tickets</label>
+          <div class="qty-control">
+            <button type="button" id="qtyMinus">−</button>
+            <span id="qtyDisplay">1</span>
+            <button type="button" id="qtyPlus">+</button>
+          </div>
+
+          <button type="submit" class="btn-primary book-btn">Confirm Booking</button>
+        </form>
+
+        <div class="booking-success hidden" id="bookingSuccess">
+          <div class="success-icon">🎉</div>
+          <h3>Booking Confirmed!</h3>
+          <p>Your tickets have been booked. A confirmation will be sent to <strong id="successEmail"></strong>.</p>
+          <a href="dashboard.html" class="btn-primary" style="margin-top:16px; display:inline-block;">Go to Dashboard</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 BookMyEvent. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
