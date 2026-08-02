@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - BookMyEvent</title>
+  <title>Dashboard — BookMyEvent</title>
+  <meta name="description" content="Track your bookings, manage events, and view analytics on your BookMyEvent dashboard."/>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="nav-logo">🎉 BookMyEvent</div>
+    <div class="nav-logo">✨ BookMyEvent</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#features">Features</a></li>
       <li><a href="index.html#events">Events</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="create-event.html">Create Event</a></li>
+      <li><a href="checkin.html">Check-in</a></li>
     </ul>
     <div class="nav-buttons">
       <a href="dashboard.html" class="btn-login">Dashboard</a>
@@ -26,6 +27,8 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="index.html#events">Events</a>
+    <a href="create-event.html">Create Event</a>
+    <a href="checkin.html">Check-in</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="booking.html">Book Now</a>
   </div>
@@ -35,154 +38,214 @@
     <p>Track your bookings, manage events, and view your activity at a glance.</p>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════════
+       DASHBOARD
+       ═══════════════════════════════════════════════════════════
+       📚 The dashboard has TWO views:
+       1. ATTENDEE view — shows your bookings, tickets, and spending
+       2. ORGANIZER view — shows your events, revenue, and analytics
+
+       The stats cards and bookings are loaded from the API dynamically.
+       The analytics charts are drawn using Canvas (HTML5 drawing API).
+  -->
   <section class="dashboard-section">
 
-    <!-- STATS ROW -->
-    <div class="stats-grid">
+    <!-- STATS ROW (populated by JavaScript) -->
+    <div class="stats-grid" id="statsGrid">
       <div class="stat-card">
         <div class="stat-icon">🎟️</div>
         <div class="stat-info">
-          <h3 id="totalBookings">3</h3>
+          <h3 id="statBookings">0</h3>
           <p>Total Bookings</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📅</div>
         <div class="stat-info">
-          <h3>2</h3>
+          <h3 id="statUpcoming">0</h3>
           <p>Upcoming Events</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">💰</div>
         <div class="stat-info">
-          <h3>₹3,497</h3>
+          <h3 id="statSpent">₹0</h3>
           <p>Total Spent</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">✅</div>
         <div class="stat-info">
-          <h3>1</h3>
+          <h3 id="statAttended">0</h3>
           <p>Events Attended</p>
         </div>
       </div>
     </div>
 
-    <div class="dashboard-layout">
+    <!-- DASHBOARD TABS
+         📚 Tabs let users switch between different views
+         without reloading the page. This is done by showing/hiding
+         sections with JavaScript (toggle CSS class).
+    -->
+    <div class="dashboard-tabs">
+      <button class="tab-btn active" data-tab="bookings">My Bookings</button>
+      <button class="tab-btn" data-tab="analytics">Analytics</button>
+      <button class="tab-btn" data-tab="feedback">Feedback</button>
+    </div>
 
-      <!-- MY BOOKINGS -->
-      <div class="dashboard-main">
-        <div class="section-header">
-          <h2>My Bookings</h2>
-          <a href="booking.html" class="btn-primary" style="font-size:13px; padding:8px 16px;">+ New Booking</a>
-        </div>
-
-        <div class="bookings-filter">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="upcoming">Upcoming</button>
-          <button class="filter-btn" data-filter="attended">Attended</button>
-        </div>
-
-        <div class="bookings-list" id="bookingsList">
-
-          <div class="booking-item" data-status="upcoming">
-            <div class="booking-color music-img"></div>
-            <div class="booking-details">
-              <span class="event-tag">Music</span>
-              <h4>Neon Nights Festival</h4>
-              <p>📅 Nov 12, 2025 &nbsp; 📍 Mumbai</p>
-              <p>🎟️ 2x General Tickets</p>
-            </div>
-            <div class="booking-meta">
-              <span class="status-badge upcoming">Upcoming</span>
-              <p class="booking-price">₹1,998</p>
-              <button class="btn-cancel" data-id="1">Cancel</button>
-            </div>
+    <!-- TAB: MY BOOKINGS -->
+    <div class="tab-content active" id="tab-bookings">
+      <div class="dashboard-layout">
+        <div class="dashboard-main">
+          <div class="section-header">
+            <h2>My Bookings</h2>
+            <a href="booking.html" class="btn-primary" style="font-size:13px; padding:8px 16px;">+ New Booking</a>
           </div>
 
-          <div class="booking-item" data-status="upcoming">
-            <div class="booking-color tech-img"></div>
-            <div class="booking-details">
-              <span class="event-tag tag-tech">Tech</span>
-              <h4>Global Tech Summit 2025</h4>
-              <p>📅 Dec 5, 2025 &nbsp; 📍 Bangalore</p>
-              <p>🎟️ 1x VIP Ticket</p>
-            </div>
-            <div class="booking-meta">
-              <span class="status-badge upcoming">Upcoming</span>
-              <p class="booking-price">₹1,499</p>
-              <button class="btn-cancel" data-id="2">Cancel</button>
-            </div>
+          <div class="bookings-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+            <button class="filter-btn" data-filter="attended">Attended</button>
+            <button class="filter-btn" data-filter="cancelled">Cancelled</button>
           </div>
 
-          <div class="booking-item" data-status="attended">
-            <div class="booking-color workshop-img"></div>
-            <div class="booking-details">
-              <span class="event-tag tag-free">Free</span>
-              <h4>Design Thinking Workshop</h4>
-              <p>📅 Oct 10, 2025 &nbsp; 📍 Online</p>
-              <p>🎟️ 1x Free Ticket</p>
-            </div>
-            <div class="booking-meta">
-              <span class="status-badge attended">Attended</span>
-              <p class="booking-price">Free</p>
-              <button class="btn-cancel" disabled>Cancel</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- SIDEBAR -->
-      <div class="dashboard-sidebar">
-
-        <div class="sidebar-card">
-          <h3>Quick Actions</h3>
-          <a href="booking.html" class="quick-action-btn">🎟️ Book a Ticket</a>
-          <a href="index.html#events" class="quick-action-btn">📅 Browse Events</a>
-          <a href="index.html#contact" class="quick-action-btn">📧 Contact Support</a>
-        </div>
-
-        <div class="sidebar-card">
-          <h3>Notifications</h3>
-          <div class="notification-item">
-            <p>🔔 <strong>Neon Nights Festival</strong> is in 3 weeks! Don't forget.</p>
-          </div>
-          <div class="notification-item">
-            <p>💳 Payment of ₹1,499 confirmed for Tech Summit.</p>
-          </div>
-          <div class="notification-item">
-            <p>📧 Your ticket QR codes have been emailed to you.</p>
+          <div class="bookings-list" id="bookingsList">
+            <div class="loading"><div class="spinner"></div></div>
           </div>
         </div>
 
-        <div class="sidebar-card">
-          <h3>Account</h3>
-          <p class="account-info">👤 John Doe</p>
-          <p class="account-info">📧 john@example.com</p>
-          <p class="account-info">📱 +91 98765 43210</p>
-          <a href="#" class="quick-action-btn" style="margin-top:12px;">✏️ Edit Profile</a>
-        </div>
+        <!-- SIDEBAR -->
+        <div class="dashboard-sidebar">
+          <div class="sidebar-card">
+            <h3>Quick Actions</h3>
+            <a href="booking.html" class="quick-action-btn">🎟️ Book a Ticket</a>
+            <a href="create-event.html" class="quick-action-btn">📝 Create Event</a>
+            <a href="index.html#events" class="quick-action-btn">📅 Browse Events</a>
+            <a href="checkin.html" class="quick-action-btn">📷 Check-in Scanner</a>
+          </div>
 
+          <div class="sidebar-card">
+            <h3>Notifications</h3>
+            <div id="notificationsContainer">
+              <div class="notification-item">
+                <p>🔔 Welcome to BookMyEvent! Start by booking an event.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Account</h3>
+            <p class="account-info" id="accountName">👤 Loading...</p>
+            <p class="account-info" id="accountEmail">📧 Loading...</p>
+            <p class="account-info" id="accountRole">🏷️ Loading...</p>
+            <a href="#" class="quick-action-btn" style="margin-top:12px;" id="logoutSidebar">🚪 Logout</a>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- TAB: ANALYTICS
+         📚 Analytics shows data visualizations:
+         - Bar charts for revenue per event
+         - Stats cards for organizer metrics
+         These are drawn using HTML Canvas API (JavaScript)
+    -->
+    <div class="tab-content" id="tab-analytics">
+      <div class="dashboard-main">
+        <div class="section-header">
+          <h2>📊 Analytics Overview</h2>
+        </div>
+
+        <!-- Organizer Stats -->
+        <div class="stats-grid" style="margin-bottom: 24px;" id="organizerStats">
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-info">
+              <h3 id="orgTotalEvents">0</h3>
+              <p>My Events</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎫</div>
+            <div class="stat-info">
+              <h3 id="orgTotalTickets">0</h3>
+              <p>Tickets Sold</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-info">
+              <h3 id="orgTotalRevenue">₹0</h3>
+              <p>Total Revenue</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-info">
+              <h3 id="orgAttendanceRate">0%</h3>
+              <p>Attendance Rate</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="analytics-grid">
+          <div class="chart-card">
+            <h3>Revenue by Event</h3>
+            <div class="bar-chart" id="revenueChart">
+              <div class="empty-state">
+                <span class="empty-state-icon">📊</span>
+                <p>Create events to see revenue data</p>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3>Bookings by Event</h3>
+            <div class="bar-chart" id="bookingsChart">
+              <div class="empty-state">
+                <span class="empty-state-icon">📈</span>
+                <p>Create events to see booking data</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: FEEDBACK -->
+    <div class="tab-content" id="tab-feedback">
+      <div class="dashboard-main">
+        <div class="section-header">
+          <h2>📝 Event Feedback</h2>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 24px;">
+          View feedback from your attended events and submit reviews for past events.
+        </p>
+        <div id="feedbackList">
+          <div class="empty-state">
+            <span class="empty-state-icon">💬</span>
+            <p>Attend events and leave feedback to see them here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- CANCEL MODAL -->
   <div class="modal-overlay hidden" id="cancelModal">
     <div class="modal">
       <h3>Cancel Booking?</h3>
-      <p>Are you sure you want to cancel this booking? This action cannot be undone.</p>
+      <p>Are you sure you want to cancel this booking? You will receive an automatic refund.</p>
       <div class="modal-buttons">
-        <button class="btn-primary" id="confirmCancel">Yes, Cancel</button>
+        <button class="btn-primary" id="confirmCancel">Yes, Cancel & Refund</button>
         <button class="btn-secondary-dark" id="closeModal">Keep Booking</button>
       </div>
     </div>
   </div>
 
   <footer class="footer">
-    <p>© 2025 BookMyEvent. All rights reserved.</p>
+    <p>© 2026 BookMyEvent. All rights reserved.</p>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Service</a>
@@ -190,6 +253,9 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>

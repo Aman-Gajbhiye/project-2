@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Details — BookMyEvent</title>
+  <meta name="description" content="View event details, ticket availability, and reviews on BookMyEvent."/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">✨ BookMyEvent</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="dashboard.html" class="btn-login">Dashboard</a>
+      <a href="booking.html" class="btn-signup">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="booking.html">Book Now</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EVENT DETAIL PAGE
+       ═══════════════════════════════════════════════════════════
+       📚 This page shows full details of a single event.
+       The event ID is passed via URL: event-detail.html?id=abc123
+       JavaScript reads the ID using URLSearchParams and fetches
+       the event data from /api/events/:id
+
+       It also shows:
+       - Countdown timer to the event
+       - Available ticket tiers
+       - Sponsor logos
+       - Post-event feedback/reviews
+       - Live stream embed for virtual events
+  -->
+
+  <!-- Event Header (populated by JavaScript) -->
+  <div class="event-detail-header" id="eventHeader">
+    <div class="event-detail-content">
+      <span class="event-tag" id="detailTag">Loading...</span>
+      <h1 style="font-size: 42px; font-weight: 900; margin: 16px 0 12px; letter-spacing: -1px;" id="detailTitle">Loading event...</h1>
+      <p style="font-size: 16px; color: var(--text-secondary);" id="detailMeta">
+        📅 Loading... &nbsp; 📍 Loading...
+      </p>
+
+      <!-- Countdown -->
+      <div class="hero-countdown" style="margin-top: 24px;" id="detailCountdown">
+        <div class="countdown-item">
+          <span class="countdown-value" id="dCountDays">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="dCountHours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="dCountMins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="dCountSecs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="event-detail-grid">
+
+    <!-- LEFT: Event Details -->
+    <div class="event-detail-main">
+      <h2>About This Event</h2>
+      <p id="detailDescription">Loading...</p>
+
+      <!-- Event Info Grid -->
+      <div class="event-meta-grid" id="detailMetaGrid">
+        <div class="event-meta-item">
+          <span class="meta-icon">📅</span>
+          <span class="meta-label">Date</span>
+          <span class="meta-value" id="metaDate">--</span>
+        </div>
+        <div class="event-meta-item">
+          <span class="meta-icon">🕐</span>
+          <span class="meta-label">Time</span>
+          <span class="meta-value" id="metaTime">--</span>
+        </div>
+        <div class="event-meta-item">
+          <span class="meta-icon">📍</span>
+          <span class="meta-label">Venue</span>
+          <span class="meta-value" id="metaVenue">--</span>
+        </div>
+        <div class="event-meta-item">
+          <span class="meta-icon">👥</span>
+          <span class="meta-label">Capacity</span>
+          <span class="meta-value" id="metaCapacity">--</span>
+        </div>
+      </div>
+
+      <!-- Live Stream (for virtual events) -->
+      <div class="hidden" id="streamSection" style="margin-bottom: 24px;">
+        <h2>🎥 Live Stream</h2>
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-align: center; margin-top: 16px;">
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">This is a virtual event. Join the live stream when the event starts.</p>
+          <a href="#" id="streamLink" class="btn-primary" target="_blank">🎬 Join Live Stream</a>
+        </div>
+      </div>
+
+      <!-- Sponsors -->
+      <div class="hidden" id="sponsorsDetailSection">
+        <h2 style="margin-bottom: 16px;">🤝 Sponsors</h2>
+        <div class="sponsors-grid" id="sponsorsDetailGrid"></div>
+      </div>
+
+      <!-- Feedback / Reviews -->
+      <div class="reviews-section" id="reviewsSection">
+        <h2>⭐ Reviews & Feedback</h2>
+        <div id="reviewsList">
+          <div class="empty-state">
+            <span class="empty-state-icon">💬</span>
+            <p>No reviews yet. Attend this event to leave feedback!</p>
+          </div>
+        </div>
+
+        <!-- Review Form (shown only to logged-in users who attended) -->
+        <div class="review-form hidden" id="reviewForm">
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Leave Your Feedback</h3>
+          <div class="star-rating" id="starRating">
+            <button type="button" data-rating="1">☆</button>
+            <button type="button" data-rating="2">☆</button>
+            <button type="button" data-rating="3">☆</button>
+            <button type="button" data-rating="4">☆</button>
+            <button type="button" data-rating="5">☆</button>
+          </div>
+          <div class="form-field">
+            <textarea id="reviewComment" placeholder="Share your experience..." style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--text-primary); font-family: 'Inter', sans-serif; resize: vertical; min-height: 80px;"></textarea>
+          </div>
+          <button class="btn-primary" id="submitReview">Submit Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Ticket Cards & Actions -->
+    <div>
+      <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: sticky; top: 80px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">🎟️ Tickets</h3>
+        <div class="ticket-cards" id="ticketCards">
+          <div class="loading"><div class="spinner"></div></div>
+        </div>
+        <a href="#" class="btn-primary book-btn" id="bookNowBtn" style="margin-top: 16px; text-align: center; display: block; width: 100%;">Book Now</a>
+
+        <!-- Calendar buttons -->
+        <div class="calendar-buttons" style="margin-top: 16px;">
+          <a href="#" class="btn-secondary" id="detailGoogleCal" style="flex: 1; text-align: center; justify-content: center;">📅 Google Cal</a>
+          <a href="#" class="btn-secondary" id="detailIcsCal" style="flex: 1; text-align: center; justify-content: center;">📥 .ics</a>
+        </div>
+
+        <!-- Organizer Info -->
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);">
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Organized by</p>
+          <p style="font-size: 14px; font-weight: 600;" id="organizerName">--</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 BookMyEvent. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

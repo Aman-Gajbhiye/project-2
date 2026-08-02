@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book a Ticket - BookMyEvent</title>
+  <title>Book a Ticket — BookMyEvent</title>
+  <meta name="description" content="Select your event, choose seats, and book tickets instantly with QR code confirmation."/>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="nav-logo">🎉 BookMyEvent</div>
+    <div class="nav-logo">✨ BookMyEvent</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#features">Features</a></li>
@@ -32,91 +34,175 @@
 
   <section class="page-header">
     <h1>Book Your <span>Ticket</span></h1>
-    <p>Choose an event, pick your ticket type, and confirm your booking in seconds.</p>
+    <p>Choose an event, pick your seats, and confirm your booking in seconds.</p>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════════
+       BOOKING SECTION
+       ═══════════════════════════════════════════════════════════
+       📚 HOW THE BOOKING FLOW WORKS:
+       1. Left side: User selects an event from a list (loaded from API)
+       2. Right side: Shows booking form with:
+          - Booking summary (auto-updates)
+          - Ticket type selector (General/VIP/Early Bird)
+          - Quantity controls (+/-)
+          - Interactive seating map
+          - Discount code input
+          - Group booking toggle
+          - Countdown timer to event
+       3. On submit → API creates booking → QR code is shown
+  -->
   <section class="booking-section">
     <div class="booking-layout">
 
+      <!-- LEFT: Event Selection -->
       <div class="booking-left">
         <h2>Select an Event</h2>
-
-        <div class="event-option active-event" data-event="Neon Nights Festival" data-price="999" data-date="Nov 12, 2025" data-location="Mumbai">
-          <div class="event-opt-color music-img"></div>
-          <div class="event-opt-info">
-            <span class="event-tag">Music</span>
-            <h4>Neon Nights Festival</h4>
-            <p>📅 Nov 12, 2025 &nbsp; 📍 Mumbai</p>
-            <p class="opt-price">From ₹999</p>
-          </div>
-        </div>
-
-        <div class="event-option" data-event="Global Tech Summit 2025" data-price="1499" data-date="Dec 5, 2025" data-location="Bangalore">
-          <div class="event-opt-color tech-img"></div>
-          <div class="event-opt-info">
-            <span class="event-tag tag-tech">Tech</span>
-            <h4>Global Tech Summit 2025</h4>
-            <p>📅 Dec 5, 2025 &nbsp; 📍 Bangalore</p>
-            <p class="opt-price">From ₹1,499</p>
-          </div>
-        </div>
-
-        <div class="event-option" data-event="Design Thinking Workshop" data-price="0" data-date="Nov 28, 2025" data-location="Online">
-          <div class="event-opt-color workshop-img"></div>
-          <div class="event-opt-info">
-            <span class="event-tag tag-free">Free</span>
-            <h4>Design Thinking Workshop</h4>
-            <p>📅 Nov 28, 2025 &nbsp; 📍 Online</p>
-            <p class="opt-price">Free</p>
-          </div>
+        <div id="eventOptionsContainer">
+          <div class="loading"><div class="spinner"></div></div>
         </div>
       </div>
 
+      <!-- RIGHT: Booking Form -->
       <div class="booking-right">
-        <div class="booking-summary">
-          <h3>Booking Summary</h3>
-          <div class="summary-row"><span>Event</span><strong id="sumEvent">Neon Nights Festival</strong></div>
-          <div class="summary-row"><span>Date</span><strong id="sumDate">Nov 12, 2025</strong></div>
-          <div class="summary-row"><span>Location</span><strong id="sumLocation">Mumbai</strong></div>
-          <div class="summary-row"><span>Ticket Type</span><strong id="sumTicket">General</strong></div>
-          <div class="summary-row"><span>Quantity</span><strong id="sumQty">1</strong></div>
-          <div class="summary-row total-row"><span>Total</span><strong id="sumTotal">₹999</strong></div>
+
+        <!-- Countdown Timer -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Event starts in</p>
+          <div class="hero-countdown" id="bookingCountdown" style="margin-top: 0; justify-content: center;">
+            <div class="countdown-item" style="padding: 10px 14px; min-width: 60px;">
+              <span class="countdown-value" id="bCountDays" style="font-size: 22px;">--</span>
+              <span class="countdown-label" style="font-size: 10px;">Days</span>
+            </div>
+            <div class="countdown-item" style="padding: 10px 14px; min-width: 60px;">
+              <span class="countdown-value" id="bCountHours" style="font-size: 22px;">--</span>
+              <span class="countdown-label" style="font-size: 10px;">Hrs</span>
+            </div>
+            <div class="countdown-item" style="padding: 10px 14px; min-width: 60px;">
+              <span class="countdown-value" id="bCountMins" style="font-size: 22px;">--</span>
+              <span class="countdown-label" style="font-size: 10px;">Min</span>
+            </div>
+            <div class="countdown-item" style="padding: 10px 14px; min-width: 60px;">
+              <span class="countdown-value" id="bCountSecs" style="font-size: 22px;">--</span>
+              <span class="countdown-label" style="font-size: 10px;">Sec</span>
+            </div>
+          </div>
         </div>
 
+        <!-- Booking Summary -->
+        <div class="booking-summary">
+          <h3>📋 Booking Summary</h3>
+          <div class="summary-row"><span>Event</span><strong id="sumEvent">Select an event</strong></div>
+          <div class="summary-row"><span>Date</span><strong id="sumDate">--</strong></div>
+          <div class="summary-row"><span>Location</span><strong id="sumLocation">--</strong></div>
+          <div class="summary-row"><span>Ticket Type</span><strong id="sumTicket">General</strong></div>
+          <div class="summary-row"><span>Quantity</span><strong id="sumQty">1</strong></div>
+          <div class="summary-row"><span>Seats</span><strong id="sumSeats">Auto-assigned</strong></div>
+          <div class="summary-row"><span>Discount</span><strong id="sumDiscount">None</strong></div>
+          <div class="summary-row total-row"><span>Total</span><strong id="sumTotal">₹0</strong></div>
+        </div>
+
+        <!-- Booking Form -->
         <form class="booking-form" id="bookingForm">
           <h3>Your Details</h3>
 
           <label for="fullName">Full Name</label>
-          <input type="text" id="fullName" placeholder="Enter your full name" />
+          <input type="text" id="fullName" placeholder="Enter your full name" required />
 
           <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="Enter your email" />
+          <input type="email" id="email" placeholder="Enter your email" required />
 
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="Enter your phone number" />
+          <input type="tel" id="phone" placeholder="Enter your phone number" required />
 
           <label for="ticketType">Ticket Type</label>
           <select id="ticketType">
-            <option value="General" data-mult="1">General — Base Price</option>
-            <option value="VIP" data-mult="2">VIP — 2x Price</option>
-            <option value="Early Bird" data-mult="0.8">Early Bird — 20% Off</option>
+            <!-- Populated dynamically based on selected event -->
+            <option value="General" data-price="0">General</option>
           </select>
 
-          <label for="qty">Number of Tickets</label>
+          <label>Number of Tickets</label>
           <div class="qty-control">
             <button type="button" id="qtyMinus">−</button>
             <span id="qtyDisplay">1</span>
             <button type="button" id="qtyPlus">+</button>
           </div>
 
-          <button type="submit" class="btn-primary book-btn">Confirm Booking</button>
+          <!-- SEATING MAP
+               📚 This is an interactive grid of seats.
+               Users click seats to select them.
+               Occupied seats are greyed out.
+               Selected seats are highlighted in purple.
+          -->
+          <div class="seating-section" id="seatingSection">
+            <h3>🗺️ Select Your Seats</h3>
+            <div class="seating-stage">STAGE</div>
+            <div class="seating-grid" id="seatingGrid">
+              <!-- Seats are generated by JavaScript -->
+            </div>
+            <div class="seating-legend">
+              <span><span class="legend-dot available"></span> Available</span>
+              <span><span class="legend-dot selected"></span> Selected</span>
+              <span><span class="legend-dot occupied"></span> Occupied</span>
+            </div>
+          </div>
+
+          <!-- DISCOUNT CODE
+               📚 User enters a promo code → JavaScript validates it
+               via API → if valid, the discount is applied to the total
+          -->
+          <label>Discount Code</label>
+          <div class="discount-row">
+            <input type="text" id="discountInput" placeholder="Enter promo code" />
+            <button type="button" class="btn-secondary" id="applyDiscount">Apply</button>
+          </div>
+          <div class="discount-msg" id="discountMsg"></div>
+
+          <!-- GROUP BOOKING
+               📚 Toggle this on to buy tickets for multiple people.
+               The main buyer pays for everyone.
+               Each group member needs a name and email.
+          -->
+          <div class="group-toggle">
+            <input type="checkbox" id="groupToggle" />
+            <label for="groupToggle" style="margin: 0; font-size: 14px; color: var(--text-secondary);">👥 Group Booking (buy for others)</label>
+          </div>
+          <div class="group-members-container hidden" id="groupContainer">
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Add group member details:</p>
+            <div id="groupMembersList"></div>
+            <button type="button" class="add-ticket-btn" id="addGroupMember">+ Add Member</button>
+          </div>
+
+          <button type="submit" class="btn-primary book-btn">🎟️ Confirm Booking</button>
         </form>
 
+        <!-- BOOKING SUCCESS (shows QR code)
+             📚 After successful booking, we show:
+             - A unique booking code (like "BME-A3F2C1")
+             - A QR code image for check-in at the venue
+             - Calendar integration buttons (Google Calendar, .ics download)
+        -->
         <div class="booking-success hidden" id="bookingSuccess">
-          <div class="success-icon">🎉</div>
+          <span class="success-icon">🎉</span>
           <h3>Booking Confirmed!</h3>
-          <p>Your tickets have been booked. A confirmation will be sent to <strong id="successEmail"></strong>.</p>
-          <a href="dashboard.html" class="btn-primary" style="margin-top:16px; display:inline-block;">Go to Dashboard</a>
+          <p>Your tickets have been booked successfully.</p>
+          <p>Confirmation sent to <strong id="successEmail"></strong></p>
+
+          <div class="booking-code" id="successCode">BME-XXXXXXXX</div>
+
+          <!-- QR Code Display -->
+          <div class="qr-container" id="qrContainer">
+            <canvas id="qrCanvas"></canvas>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted);">Show this QR code at the venue for entry</p>
+
+          <!-- Calendar Integration -->
+          <div class="calendar-buttons" id="calendarButtons">
+            <a href="#" class="btn-secondary" id="googleCalBtn">📅 Google Calendar</a>
+            <a href="#" class="btn-secondary" id="icsDownloadBtn">📥 Download .ics</a>
+          </div>
+
+          <a href="dashboard.html" class="btn-primary" style="margin-top: 20px; display: inline-flex;">Go to Dashboard</a>
         </div>
       </div>
 
@@ -124,7 +210,7 @@
   </section>
 
   <footer class="footer">
-    <p>© 2025 BookMyEvent. All rights reserved.</p>
+    <p>© 2026 BookMyEvent. All rights reserved.</p>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Service</a>
@@ -132,6 +218,9 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <!-- QR Code Library (lightweight, open-source) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>

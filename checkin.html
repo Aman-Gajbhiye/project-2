@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Check-in Scanner — BookMyEvent</title>
+  <meta name="description" content="Scan QR codes or enter booking codes to check in attendees at your event."/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">✨ BookMyEvent</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="dashboard.html" class="btn-login">Dashboard</a>
+      <a href="booking.html" class="btn-signup">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="booking.html">Book Now</a>
+  </div>
+
+  <section class="page-header">
+    <h1>Attendee <span>Check-in</span></h1>
+    <p>Enter a booking code to verify and check in attendees at your event.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CHECK-IN SCANNER
+       ═══════════════════════════════════════════════════════════
+       📚 HOW CHECK-IN WORKS:
+       1. Every booking gets a unique code like "BME-A3F2C1"
+       2. At the event, the organizer opens this page
+       3. They type in the booking code
+       4. JavaScript sends: POST /api/bookings/checkin/BME-A3F2C1
+       5. Server checks if the code is valid and not already used
+       6. If valid → marks as "checked in" → shows green success
+       7. If invalid or already used → shows red error
+
+       📚 In a real app, you'd also integrate a camera-based
+       QR code scanner using a library like html5-qrcode.
+       For this project, manual code entry is used.
+  -->
+  <section class="checkin-section">
+    <div class="checkin-card">
+      <div class="checkin-icon">📷</div>
+      <h2>Scan or Enter Code</h2>
+      <p>Enter the booking code printed on the attendee's ticket or shown on their phone.</p>
+
+      <div class="checkin-input-group">
+        <input type="text" id="checkinCode" placeholder="BME-XXXXXXXX" maxlength="14" />
+        <button class="btn-primary" id="checkinBtn">✅ Check In</button>
+      </div>
+
+      <!-- Result area — shows success or error after check-in attempt -->
+      <div class="checkin-result" id="checkinResult">
+        <h3 id="checkinResultTitle"></h3>
+        <p id="checkinResultMsg"></p>
+        <p id="checkinResultDetails"></p>
+      </div>
+
+      <!-- Check-in counter -->
+      <div class="checkin-counter">
+        <div class="checkin-counter-item">
+          <span class="checkin-counter-value" id="checkinCount">0</span>
+          <span class="checkin-counter-label">Checked In</span>
+        </div>
+        <div class="checkin-counter-item">
+          <span class="checkin-counter-value" id="checkinTotal">0</span>
+          <span class="checkin-counter-label">This Session</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 BookMyEvent. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

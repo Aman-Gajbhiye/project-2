@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Event — BookMyEvent</title>
+  <meta name="description" content="Create and publish your event on BookMyEvent. Set ticket tiers, add sponsors, and start selling tickets."/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">✨ BookMyEvent</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <a href="dashboard.html" class="btn-login">Dashboard</a>
+      <a href="booking.html" class="btn-signup">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="booking.html">Book Now</a>
+  </div>
+
+  <section class="page-header">
+    <h1>Create <span>Event</span></h1>
+    <p>Fill in the details below to publish your event and start selling tickets.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CREATE EVENT FORM
+       ═══════════════════════════════════════════════════════════
+       📚 This form collects all event information:
+       - Basic info (title, description, category)
+       - Date, time, venue
+       - Ticket types (you can add multiple tiers)
+       - Discount codes
+       - Sponsor information
+       - Virtual event settings
+
+       When submitted, JavaScript sends a POST request to /api/events
+       with all this data as JSON.
+  -->
+  <section class="create-event-section">
+    <form class="create-event-form" id="createEventForm">
+
+      <!-- Error/Success messages -->
+      <div class="auth-message auth-error" id="eventError"></div>
+      <div class="auth-message auth-success" id="eventSuccess"></div>
+
+      <!-- BASIC INFORMATION -->
+      <div class="form-section">
+        <h3>📋 Basic Information</h3>
+        <div class="form-field">
+          <label for="eventTitle">Event Title *</label>
+          <input type="text" id="eventTitle" placeholder="e.g., Neon Nights Festival" required />
+        </div>
+        <div class="form-field">
+          <label for="eventDesc">Description</label>
+          <textarea id="eventDesc" placeholder="Describe your event in detail..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="eventCategory">Category</label>
+            <select id="eventCategory">
+              <option value="music">🎵 Music</option>
+              <option value="tech">💻 Tech</option>
+              <option value="workshop">🎓 Workshop</option>
+              <option value="business">💼 Business</option>
+              <option value="food">🍕 Food</option>
+              <option value="art">🎨 Art</option>
+              <option value="sports">⚽ Sports</option>
+              <option value="other">📦 Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="eventCapacity">Capacity</label>
+            <input type="number" id="eventCapacity" placeholder="100" min="1" value="100" />
+          </div>
+        </div>
+      </div>
+
+      <!-- DATE & VENUE -->
+      <div class="form-section">
+        <h3>📍 Date & Venue</h3>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="eventDate">Date *</label>
+            <input type="date" id="eventDate" required />
+          </div>
+          <div class="form-field">
+            <label for="eventTime">Time</label>
+            <input type="time" id="eventTime" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="eventVenue">Venue Name</label>
+            <input type="text" id="eventVenue" placeholder="e.g., Phoenix Arena" />
+          </div>
+          <div class="form-field">
+            <label for="eventLocation">City / Location</label>
+            <input type="text" id="eventLocation" placeholder="e.g., Mumbai" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label>
+            <input type="checkbox" id="isVirtual" style="width: auto; margin-right: 8px;" />
+            This is a virtual/online event
+          </label>
+        </div>
+        <div class="form-field hidden" id="streamUrlField">
+          <label for="streamUrl">Stream URL (YouTube/Zoom link)</label>
+          <input type="url" id="streamUrl" placeholder="https://youtube.com/live/..." />
+        </div>
+      </div>
+
+      <!-- TICKET TYPES
+           📚 This section lets organizers create multiple ticket tiers.
+           They can add/remove tiers dynamically.
+           Each tier has: Name, Price, Quantity
+      -->
+      <div class="form-section">
+        <h3>🎟️ Ticket Types</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Add one or more ticket types. Set price to 0 for free events.
+        </p>
+        <div class="ticket-types-list" id="ticketTypesList">
+          <div class="ticket-type-row">
+            <div class="form-field" style="margin:0">
+              <label>Tier Name</label>
+              <input type="text" class="tt-name" value="General" placeholder="e.g., General" />
+            </div>
+            <div class="form-field" style="margin:0">
+              <label>Price (₹)</label>
+              <input type="number" class="tt-price" value="0" min="0" placeholder="0" />
+            </div>
+            <div class="form-field" style="margin:0">
+              <label>Quantity</label>
+              <input type="number" class="tt-qty" value="100" min="1" placeholder="100" />
+            </div>
+            <button type="button" class="remove-ticket-btn" onclick="this.closest('.ticket-type-row').remove()">✕</button>
+          </div>
+        </div>
+        <button type="button" class="add-ticket-btn" id="addTicketType">+ Add Another Ticket Type</button>
+      </div>
+
+      <!-- DISCOUNT CODES -->
+      <div class="form-section">
+        <h3>🏷️ Discount Codes (Optional)</h3>
+        <div id="discountCodesList"></div>
+        <button type="button" class="add-ticket-btn" id="addDiscountCode">+ Add Discount Code</button>
+      </div>
+
+      <!-- SPONSORS -->
+      <div class="form-section">
+        <h3>🤝 Sponsors (Optional)</h3>
+        <div id="sponsorsList"></div>
+        <button type="button" class="add-ticket-btn" id="addSponsor">+ Add Sponsor</button>
+      </div>
+
+      <!-- SUBMIT -->
+      <button type="submit" class="btn-primary book-btn">🚀 Publish Event</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 BookMyEvent. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

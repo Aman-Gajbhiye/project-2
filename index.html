@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BookMyEvent - Event Management System</title>
+  <title>BookMyEvent — Discover & Book Amazing Events</title>
+  <meta name="description" content="BookMyEvent is a premium event management platform. Discover events, book tickets, and manage your experiences all in one place."/>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVBAR
+       ═══════════════════════════════════════════════════════════
+       📚 The navbar uses "position: sticky" so it stays at the top
+       when you scroll. The glassmorphism effect (blur) comes from CSS.
+  -->
   <nav class="navbar">
-    <div class="nav-logo">🎉 BookMyEvent</div>
+    <div class="nav-logo">✨ BookMyEvent</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="#features">Features</a></li>
@@ -34,129 +40,189 @@
     <a href="booking.html">Book Now</a>
   </div>
 
-  <!-- HERO -->
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════════════════════════
+       📚 The hero is the first thing users see. It has:
+       - An animated gradient background (CSS animation)
+       - Floating decorative orbs (CSS ::before, ::after)
+       - A countdown timer to the next event (JavaScript)
+       - Platform statistics
+  -->
   <section class="hero" id="home">
-    <h1>Manage Your Events <span>Easily</span></h1>
-    <p>Create events, sell tickets, and manage attendees all in one place.</p>
+    <h1>Discover & Book <span>Amazing Events</span></h1>
+    <p>Create events, sell tickets with QR codes, manage attendees, and grow your audience — all from one powerful platform.</p>
     <div class="hero-buttons">
-      <a href="booking.html" class="btn-primary">Book an Event</a>
+      <a href="booking.html" class="btn-primary">🎟️ Book an Event</a>
       <a href="#events" class="btn-secondary">Browse Events</a>
+    </div>
+
+    <!-- Countdown to next event -->
+    <div class="hero-countdown" id="heroCountdown">
+      <div class="countdown-item">
+        <span class="countdown-value" id="countDays">--</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-value" id="countHours">--</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-value" id="countMins">--</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-value" id="countSecs">--</span>
+        <span class="countdown-label">Seconds</span>
+      </div>
+    </div>
+    <p id="countdownLabel" style="color: var(--text-muted); font-size: 13px; margin-top: 12px; position: relative; z-index: 1;">⏳ Until the next event</p>
+
+    <!-- Platform stats -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-number" id="statEvents">0</span>
+        <span class="hero-stat-label">Events</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">500+</span>
+        <span class="hero-stat-label">Attendees</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">98%</span>
+        <span class="hero-stat-label">Satisfaction</span>
+      </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
+  <!-- ═══════════════════════════════════════════════════════════
+       FEATURES
+       ═══════════════════════════════════════════════════════════
+       📚 Feature boxes use CSS Grid (3 columns on desktop,
+       1 column on mobile via media queries).
+       Each box has a hover effect that raises it up.
+  -->
   <section class="features" id="features">
     <h2>Why Choose BookMyEvent?</h2>
+    <p>Everything you need to create, promote, and manage events of any scale.</p>
     <div class="features-grid">
       <div class="feature-box">
         <div class="feature-icon">🎟️</div>
-        <h3>Easy Ticketing</h3>
-        <p>Sell tickets online with support for VIP, general, and early bird pricing.</p>
+        <h3>Multi-Ticket Types</h3>
+        <p>Sell VIP, General, and Early Bird tickets with dynamic pricing. Support group bookings for teams.</p>
       </div>
       <div class="feature-box">
         <div class="feature-icon">📱</div>
         <h3>QR Code Check-in</h3>
-        <p>Generate QR codes for every ticket and scan them at the entry gate.</p>
+        <p>Every ticket gets a unique QR code. Scan at entry for instant verification — no paper tickets needed.</p>
       </div>
       <div class="feature-box">
         <div class="feature-icon">📊</div>
         <h3>Analytics Dashboard</h3>
-        <p>Track ticket sales, revenue, and attendance in real time.</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">📧</div>
-        <h3>Email Campaigns</h3>
-        <p>Send promotional emails to your registered attendees with one click.</p>
+        <p>Track ticket sales, revenue, and attendance rates in real time with visual charts and breakdowns.</p>
       </div>
       <div class="feature-box">
         <div class="feature-icon">🗺️</div>
-        <h3>Seat Selection</h3>
-        <p>Let attendees pick their seats from an interactive seating map.</p>
+        <h3>Interactive Seat Selection</h3>
+        <p>Let attendees pick their preferred seats from an interactive venue map before checkout.</p>
       </div>
       <div class="feature-box">
         <div class="feature-icon">💳</div>
         <h3>Secure Payments</h3>
-        <p>Accept payments securely with automatic refunds on event cancellation.</p>
+        <p>Accept payments securely with automatic refunds when events are cancelled. Group payment supported.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📅</div>
+        <h3>Calendar Integration</h3>
+        <p>Add events directly to Google Calendar or Outlook with one click. Never miss an event again.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🏷️</div>
+        <h3>Discount Codes</h3>
+        <p>Create promo codes and group discounts. Track usage and set limits for each code.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">📡</div>
+        <h3>Live Streaming</h3>
+        <p>Host hybrid or virtual events with integrated live streaming. Embed YouTube or Twitch streams.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">⏳</div>
+        <h3>Waitlist Management</h3>
+        <p>When tickets sell out, attendees join a waitlist. They're auto-notified when spots open up.</p>
       </div>
     </div>
   </section>
 
-  <!-- UPCOMING EVENTS -->
+  <!-- ═══════════════════════════════════════════════════════════
+       UPCOMING EVENTS (Loaded from API dynamically)
+       ═══════════════════════════════════════════════════════════
+       📚 These event cards are NOT hardcoded anymore!
+       JavaScript fetches them from the server API and
+       renders them dynamically. This is the MVC pattern in action:
+       - Model = MongoDB Event documents
+       - View = These HTML cards
+       - Controller = The /api/events route
+  -->
   <section class="events" id="events">
     <h2>Upcoming Events</h2>
-    <div class="events-grid">
-      <div class="event-card">
-        <div class="event-img music-img"></div>
-        <div class="event-info">
-          <span class="event-tag">Music</span>
-          <h3>Neon Nights Festival</h3>
-          <p>📅 November 12, 2025</p>
-          <p>📍 Mumbai</p>
-          <div class="event-footer">
-            <span class="event-price">₹999</span>
-            <a href="booking.html" class="btn-primary">Book Now</a>
-          </div>
-        </div>
-      </div>
-      <div class="event-card">
-        <div class="event-img tech-img"></div>
-        <div class="event-info">
-          <span class="event-tag tag-tech">Tech</span>
-          <h3>Global Tech Summit 2025</h3>
-          <p>📅 December 5, 2025</p>
-          <p>📍 Bangalore</p>
-          <div class="event-footer">
-            <span class="event-price">₹1,499</span>
-            <a href="booking.html" class="btn-primary">Book Now</a>
-          </div>
-        </div>
-      </div>
-      <div class="event-card">
-        <div class="event-img workshop-img"></div>
-        <div class="event-info">
-          <span class="event-tag tag-free">Free</span>
-          <h3>Design Thinking Workshop</h3>
-          <p>📅 November 28, 2025</p>
-          <p>📍 Online</p>
-          <div class="event-footer">
-            <span class="event-price">Free</span>
-            <a href="booking.html" class="btn-primary">Register</a>
-          </div>
-        </div>
-      </div>
+    <p class="section-subtitle">Discover what's happening near you</p>
+
+    <!-- Search & Filter -->
+    <div class="events-toolbar">
+      <input type="text" class="search-input" id="eventSearch" placeholder="🔍 Search events..." />
+      <select class="filter-select" id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="music">🎵 Music</option>
+        <option value="tech">💻 Tech</option>
+        <option value="workshop">🎓 Workshop</option>
+        <option value="business">💼 Business</option>
+        <option value="food">🍕 Food</option>
+        <option value="art">🎨 Art</option>
+        <option value="sports">⚽ Sports</option>
+      </select>
+    </div>
+
+    <!-- Events grid — populated by JavaScript -->
+    <div class="events-grid" id="eventsGrid">
+      <div class="loading"><div class="spinner"></div></div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
+  <!-- ═══════════════════════════════════════════════════════════
+       HOW IT WORKS
+       ═══════════════════════════════════════════════════════════ -->
   <section class="how-it-works">
     <h2>How It Works</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <h3>Create Event</h3>
-        <p>Fill in the event details, set ticket types, and publish your event page.</p>
+        <p>Fill in event details, set multiple ticket tiers, add sponsors, and publish your event page instantly.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Promote &amp; Sell</h3>
-        <p>Share your event link and start receiving registrations and payments.</p>
+        <h3>Promote & Sell</h3>
+        <p>Share your event link, create discount codes, and start receiving registrations and payments.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Host &amp; Track</h3>
-        <p>Check in attendees with QR codes and view live attendance data.</p>
+        <h3>Host & Track</h3>
+        <p>Check in attendees with QR codes, view live analytics, and collect post-event feedback.</p>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ═══════════════════════════════════════════════════════════
+       CONTACT
+       ═══════════════════════════════════════════════════════════ -->
   <section class="contact" id="contact">
     <h2>Get In Touch</h2>
     <p>Have questions? We'd love to hear from you.</p>
     <form class="contact-form" id="contactForm">
-      <input type="text" id="contactName" placeholder="Your Name" />
-      <input type="email" id="contactEmail" placeholder="Your Email" />
-      <textarea placeholder="Your Message" rows="4" id="contactMsg"></textarea>
+      <input type="text" id="contactName" placeholder="Your Name" required />
+      <input type="email" id="contactEmail" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" rows="4" id="contactMsg" required></textarea>
       <button type="submit" class="btn-primary">Send Message</button>
     </form>
     <p class="form-success" id="contactSuccess">✅ Message sent! We'll get back to you shortly.</p>
@@ -164,7 +230,7 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2025 BookMyEvent. All rights reserved.</p>
+    <p>© 2026 BookMyEvent. All rights reserved.</p>
     <div class="footer-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Service</a>
@@ -172,6 +238,7 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
